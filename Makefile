@@ -16,17 +16,15 @@ exportrepo/config:
 
 repo/refs/heads/base/org.openSUSE.Runtime/$(ARCH)/$(VERSION): repo/config leap-42.1.kiwi config.sh
 	sudo rm -rf buildroot
-	sudo kiwi --profile="runtime" system prepare --root=$$PWD/buildroot --description=$$PWD
 	sudo ./prepare-to-ostree.sh
 	sudo ostree --repo=repo commit -s 'initial build' -b base/org.openSUSE.Runtime/$(ARCH)/$(VERSION) --tree=dir=$$PWD/buildroot-prepare
-	sudo chown -R `whoami` repo
+	sudo chown -Rv `whoami`:`id -g -n` repo
 
 repo/refs/heads/base/org.openSUSE.Sdk/$(ARCH)/$(VERSION): repo/config leap-42.1.kiwi config.sh
 	sudo rm -rf buildroot
-	sudo kiwi --profile="sdk" system prepare --root=$$PWD/buildroot --description=$$PWD
 	sudo ./prepare-to-ostree.sh
 	sudo ostree --repo=repo commit -s 'initial build' -b base/org.openSUSE.Sdk/$(ARCH)/$(VERSION) --tree=dir=$$PWD/buildroot-prepare
-	sudo chown -R `whoami` repo
+	sudo chown -Rv `whoami`:`id -g -b` repo
 
 repo/refs/heads/runtime/org.openSUSE.Runtime/$(ARCH)/$(VERSION): repo/refs/heads/base/org.openSUSE.Runtime/$(ARCH)/$(VERSION) metadata.runtime
 	./commit-subtree.sh base/org.openSUSE.Runtime/$(ARCH)/$(VERSION) runtime/org.openSUSE.Runtime/$(ARCH)/$(VERSION) metadata.runtime /usr files

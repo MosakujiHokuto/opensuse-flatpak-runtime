@@ -1,5 +1,6 @@
 #!/bin/sh
 
+SRC=/tmp/sysroot
 TARGET=buildroot-prepare
 rm -fr $TARGET
 mkdir $TARGET
@@ -13,8 +14,8 @@ ln -s ../run/media $TARGET/media
 ln -s ../sysroot/ostree $TARGET/ostree
 ln -s ../sysroot/tmp $TARGET/tmp
 
-mv buildroot/usr $TARGET/usr
-mv buildroot/etc $TARGET/etc
+cp -r $SRC/usr $TARGET/usr
+cp -r $SRC/etc $TARGET/etc
 ln -s var/lib/rpm $TARGET/usr/share/rpm
-mv $TARGET/usr/local $TARGET/var/usrlocal
+cp -r $TARGET/usr/local $TARGET/var/usrlocal
 
