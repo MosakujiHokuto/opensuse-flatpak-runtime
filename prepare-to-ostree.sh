@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SRC=/tmp/sysroot
+SRC=buildroot
 TARGET=buildroot-prepare
 rm -fr $TARGET
 mkdir $TARGET
